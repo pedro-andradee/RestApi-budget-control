@@ -24,6 +24,12 @@ public class IncomeResource {
         return ResponseEntity.ok().body(listDto);
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<IncomeDTO> findById(@PathVariable Long id) {
+        IncomeDTO dto = incomeService.findById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
     @PostMapping
     public ResponseEntity<IncomeDTO> insert(@RequestBody @Valid IncomeDTO dto) {
         dto = incomeService.insert(dto);
