@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,18 @@ public class IncomeService {
         copyDtoToEntity(dto, entity);
         entity = incomeRepository.save(entity);
         return new IncomeDTO(entity);
+    }
+    
+    @Transactional
+    public IncomeDTO update(Long id, IncomeDTO dto) {
+        try {
+            Income entity = incomeRepository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = incomeRepository.save(entity);
+            return new IncomeDTO(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found");
+        }
     }
 
     private void copyDtoToEntity(IncomeDTO dto, Income entity) {
