@@ -1,7 +1,7 @@
 package com.pedro.andrade.finance.control.resources;
 
-import com.pedro.andrade.finance.control.dto.IncomeDTO;
-import com.pedro.andrade.finance.control.services.IncomeService;
+import com.pedro.andrade.finance.control.dto.ExpenseDTO;
+import com.pedro.andrade.finance.control.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,41 +12,41 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/incomes")
-public class IncomeResource {
+@RequestMapping(value = "/expenses")
+public class ExpenseResource {
 
     @Autowired
-    private IncomeService incomeService;
+    private ExpenseService expenseService;
 
     @GetMapping
-    public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
-        List<IncomeDTO> listDto = incomeService.getAllIncomes();
+    public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
+        List<ExpenseDTO> listDto = expenseService.getAllExpenses();
         return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<IncomeDTO> findById(@PathVariable Long id) {
-        IncomeDTO dto = incomeService.findById(id);
+    public ResponseEntity<ExpenseDTO> findById(@PathVariable Long id) {
+        ExpenseDTO dto = expenseService.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<IncomeDTO> insert(@RequestBody @Valid IncomeDTO dto) {
-        dto = incomeService.insert(dto);
+    public ResponseEntity<ExpenseDTO> insert(@RequestBody @Valid ExpenseDTO dto) {
+        dto = expenseService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<IncomeDTO> update(@PathVariable Long id, @RequestBody @Valid IncomeDTO dto) {
-        dto = incomeService.update(id, dto);
+    public ResponseEntity<ExpenseDTO> update(@PathVariable Long id, @RequestBody @Valid ExpenseDTO dto) {
+        dto = expenseService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        incomeService.delete(id);
+        expenseService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
