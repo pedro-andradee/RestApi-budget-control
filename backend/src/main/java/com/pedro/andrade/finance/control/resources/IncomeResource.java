@@ -43,4 +43,10 @@ public class IncomeResource {
         dto = incomeService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        incomeService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

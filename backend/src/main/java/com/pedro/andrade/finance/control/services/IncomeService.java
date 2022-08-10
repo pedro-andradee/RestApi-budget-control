@@ -5,6 +5,7 @@ import com.pedro.andrade.finance.control.entities.Income;
 import com.pedro.andrade.finance.control.repositories.IncomeRepository;
 import com.pedro.andrade.finance.control.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class IncomeService {
         entity = incomeRepository.save(entity);
         return new IncomeDTO(entity);
     }
-    
+
     @Transactional
     public IncomeDTO update(Long id, IncomeDTO dto) {
         try {
@@ -47,6 +48,14 @@ public class IncomeService {
             entity = incomeRepository.save(entity);
             return new IncomeDTO(entity);
         } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found");
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            incomeRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Id not found");
         }
     }
