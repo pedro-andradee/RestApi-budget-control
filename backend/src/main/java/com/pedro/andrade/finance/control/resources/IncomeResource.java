@@ -4,14 +4,12 @@ import com.pedro.andrade.finance.control.dto.IncomeDTO;
 import com.pedro.andrade.finance.control.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/incomes")
@@ -19,6 +17,12 @@ public class IncomeResource {
 
     @Autowired
     private IncomeService incomeService;
+
+    @GetMapping
+    public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
+        List<IncomeDTO> listDto = incomeService.getAllIncomes();
+        return ResponseEntity.ok().body(listDto);
+    }
 
     @PostMapping
     public ResponseEntity<IncomeDTO> insert(@RequestBody @Valid IncomeDTO dto) {

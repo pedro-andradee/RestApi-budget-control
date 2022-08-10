@@ -7,11 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class IncomeService {
 
     @Autowired
     private IncomeRepository incomeRepository;
+
+    @Transactional(readOnly = true)
+    public List<IncomeDTO> getAllIncomes() {
+        List<Income> list = incomeRepository.findAll();
+        return list.stream().map(income -> new IncomeDTO(income)).toList();
+    }
 
     @Transactional
     public IncomeDTO insert(IncomeDTO dto) {
