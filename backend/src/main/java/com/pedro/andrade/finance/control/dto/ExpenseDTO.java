@@ -4,6 +4,7 @@ import com.pedro.andrade.finance.control.entities.Expense;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -11,11 +12,11 @@ public class ExpenseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Description cannot be blank")
     private String description;
-    @NotNull
+    @Positive(message = "Value must be positive")
     private Double value;
-    @NotNull
+    @NotNull(message = "Must be a valid date")
     private LocalDate date;
 
     public ExpenseDTO() {

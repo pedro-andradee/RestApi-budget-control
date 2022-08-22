@@ -31,7 +31,7 @@ public class ExpenseResource {
     }
 
     @PostMapping
-    public ResponseEntity<ExpenseDTO> insert(@RequestBody @Valid ExpenseDTO dto) {
+    public ResponseEntity<ExpenseDTO> insert(@Valid @RequestBody ExpenseDTO dto) {
         dto = expenseService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -39,7 +39,7 @@ public class ExpenseResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ExpenseDTO> update(@PathVariable Long id, @RequestBody @Valid ExpenseDTO dto) {
+    public ResponseEntity<ExpenseDTO> update(@PathVariable Long id, @Valid @RequestBody ExpenseDTO dto) {
         dto = expenseService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

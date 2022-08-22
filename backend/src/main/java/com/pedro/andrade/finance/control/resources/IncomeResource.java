@@ -31,7 +31,7 @@ public class IncomeResource {
     }
 
     @PostMapping
-    public ResponseEntity<IncomeDTO> insert(@RequestBody @Valid IncomeDTO dto) {
+    public ResponseEntity<IncomeDTO> insert(@Valid @RequestBody IncomeDTO dto) {
         dto = incomeService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -39,7 +39,7 @@ public class IncomeResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<IncomeDTO> update(@PathVariable Long id, @RequestBody @Valid IncomeDTO dto) {
+    public ResponseEntity<IncomeDTO> update(@PathVariable Long id, @Valid @RequestBody IncomeDTO dto) {
         dto = incomeService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
