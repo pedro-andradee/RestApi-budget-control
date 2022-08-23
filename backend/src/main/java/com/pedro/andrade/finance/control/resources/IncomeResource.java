@@ -19,8 +19,13 @@ public class IncomeResource {
     private IncomeService incomeService;
 
     @GetMapping
-    public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
-        List<IncomeDTO> listDto = incomeService.getAllIncomes();
+    public ResponseEntity<List<IncomeDTO>> findAllIncomes(@RequestParam(value = "description", required = false) String description) {
+        List<IncomeDTO> listDto;
+        if (description != null) {
+            listDto = incomeService.findAllByDescription(description);
+        } else {
+            listDto = incomeService.findAllIncomes();
+        }
         return ResponseEntity.ok().body(listDto);
     }
 

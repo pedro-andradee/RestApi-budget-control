@@ -20,8 +20,14 @@ public class IncomeService {
     private IncomeRepository incomeRepository;
 
     @Transactional(readOnly = true)
-    public List<IncomeDTO> getAllIncomes() {
+    public List<IncomeDTO> findAllIncomes() {
         List<Income> list = incomeRepository.findAll();
+        return list.stream().map(income -> new IncomeDTO(income)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<IncomeDTO> findAllByDescription(String description) {
+        List<Income> list = incomeRepository.findAllByDescriptionContaining(description);
         return list.stream().map(income -> new IncomeDTO(income)).toList();
     }
 
