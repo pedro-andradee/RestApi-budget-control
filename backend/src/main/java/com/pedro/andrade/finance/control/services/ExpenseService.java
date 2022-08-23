@@ -21,8 +21,14 @@ public class ExpenseService {
     private ExpenseRepository expenseRepository;
 
     @Transactional(readOnly = true)
-    public List<ExpenseDTO> getAllExpenses() {
+    public List<ExpenseDTO> findAllExpenses() {
         List<Expense> list = expenseRepository.findAll();
+        return list.stream().map(expense -> new ExpenseDTO(expense)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ExpenseDTO> findAllByDescription(String description) {
+        List<Expense> list = expenseRepository.findAllByDescriptionContaining(description);
         return list.stream().map(expense -> new ExpenseDTO(expense)).toList();
     }
 

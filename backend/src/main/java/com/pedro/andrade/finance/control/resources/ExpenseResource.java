@@ -19,8 +19,13 @@ public class ExpenseResource {
     private ExpenseService expenseService;
 
     @GetMapping
-    public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
-        List<ExpenseDTO> listDto = expenseService.getAllExpenses();
+    public ResponseEntity<List<ExpenseDTO>> findAllExpenses(@RequestParam(value = "description", required = false) String description) {
+        List<ExpenseDTO> listDto;
+        if (description != null) {
+            listDto = expenseService.findAllByDescription(description);
+        } else {
+            listDto = expenseService.findAllExpenses();
+        }
         return ResponseEntity.ok().body(listDto);
     }
 
