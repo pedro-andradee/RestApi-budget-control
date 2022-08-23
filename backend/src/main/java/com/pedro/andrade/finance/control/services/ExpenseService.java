@@ -2,6 +2,7 @@ package com.pedro.andrade.finance.control.services;
 
 import com.pedro.andrade.finance.control.dto.ExpenseDTO;
 import com.pedro.andrade.finance.control.entities.Expense;
+import com.pedro.andrade.finance.control.enums.Category;
 import com.pedro.andrade.finance.control.repositories.ExpenseRepository;
 import com.pedro.andrade.finance.control.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,10 @@ public class ExpenseService {
         entity.setDescription(dto.getDescription());
         entity.setValue(dto.getValue());
         entity.setDate(dto.getDate());
+        if (dto.getCategory() != null) {
+            entity.setCategory(dto.getCategory());
+        } else {
+            entity.setCategory(Category.OTHERS);
+        }
     }
 }

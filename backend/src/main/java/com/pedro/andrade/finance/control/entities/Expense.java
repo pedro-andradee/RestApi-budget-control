@@ -1,8 +1,11 @@
 package com.pedro.andrade.finance.control.entities;
 
+import com.pedro.andrade.finance.control.enums.Category;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_expense")
@@ -16,14 +19,18 @@ public class Expense implements Serializable {
     private Double value;
     private LocalDate date;
 
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     public Expense() {
     }
 
-    public Expense(Long id, String description, Double value, LocalDate date) {
+    public Expense(Long id, String description, Double value, LocalDate date, Category category) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
+        this.category = category;
     }
 
     public Long getId() {
@@ -58,6 +65,14 @@ public class Expense implements Serializable {
         this.date = date;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,7 +80,7 @@ public class Expense implements Serializable {
 
         Expense expense = (Expense) o;
 
-        return id != null ? id.equals(expense.id) : expense.id == null;
+        return Objects.equals(id, expense.id);
     }
 
     @Override
