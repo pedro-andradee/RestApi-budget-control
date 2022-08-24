@@ -1,6 +1,7 @@
 package com.pedro.andrade.finance.control.resources;
 
 import com.pedro.andrade.finance.control.dto.ExpenseDTO;
+import com.pedro.andrade.finance.control.dto.IncomeDTO;
 import com.pedro.andrade.finance.control.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,12 @@ public class ExpenseResource {
     public ResponseEntity<ExpenseDTO> findById(@PathVariable Long id) {
         ExpenseDTO dto = expenseService.findById(id);
         return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping(value = "/{year}/{month}")
+    public ResponseEntity<List<ExpenseDTO>> findAllByYearAndMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        List<ExpenseDTO> listDto = expenseService.findAllByYearAndMonth(year, month);
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
