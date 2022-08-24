@@ -35,6 +35,12 @@ public class IncomeResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping(value = "/{year}/{month}")
+    public ResponseEntity<List<IncomeDTO>> findAllByYearAndMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        List<IncomeDTO> listDto = incomeService.findAllByYearAndMonth(year, month);
+        return ResponseEntity.ok().body(listDto);
+    }
+
     @PostMapping
     public ResponseEntity<IncomeDTO> insert(@Valid @RequestBody IncomeDTO dto) {
         dto = incomeService.insert(dto);

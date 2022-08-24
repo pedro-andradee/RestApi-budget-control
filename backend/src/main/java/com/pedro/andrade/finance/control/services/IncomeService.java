@@ -38,6 +38,12 @@ public class IncomeService {
         return new IncomeDTO(entity);
     }
 
+    @Transactional(readOnly = true)
+    public List<IncomeDTO> findAllByYearAndMonth(Integer year, Integer month) {
+        List<Income> list = incomeRepository.findAllByYearAndMonth(year, month);
+        return list.stream().map(income -> new IncomeDTO(income)).toList();
+    }
+
     @Transactional
     public IncomeDTO insert(IncomeDTO dto) {
         Income entity = new Income();
