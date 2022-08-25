@@ -13,4 +13,7 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
 
     @Query(value = "SELECT * FROM tb_income WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
     List<Income> findAllByYearAndMonth(Integer year, Integer month);
+
+    @Query(value = "SELECT SUM(value) FROM tb_income WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
+    Double getTotalIncomesByYearAndMonth(Integer year, Integer month);
 }

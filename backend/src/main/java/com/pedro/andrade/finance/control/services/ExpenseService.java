@@ -1,9 +1,8 @@
 package com.pedro.andrade.finance.control.services;
 
+import com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO;
 import com.pedro.andrade.finance.control.dto.ExpenseDTO;
-import com.pedro.andrade.finance.control.dto.IncomeDTO;
 import com.pedro.andrade.finance.control.entities.Expense;
-import com.pedro.andrade.finance.control.entities.Income;
 import com.pedro.andrade.finance.control.enums.Category;
 import com.pedro.andrade.finance.control.repositories.ExpenseRepository;
 import com.pedro.andrade.finance.control.services.exceptions.ResourceNotFoundException;
@@ -45,6 +44,16 @@ public class ExpenseService {
     public List<ExpenseDTO> findAllByYearAndMonth(Integer year, Integer month) {
         List<Expense> list = expenseRepository.findAllByYearAndMonth(year, month);
         return list.stream().map(expense -> new ExpenseDTO(expense)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Double getTotalExpensesByYearAndMonth(Integer year, Integer month) {
+        return expenseRepository.getTotalExpensesByYearAndMonth(year, month);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ExpenseByCategoryDTO> getTotalExpensesEachCategoryByYearAndMonth(Integer year, Integer month) {
+        return expenseRepository.getTotalExpensesEachCategoryByYearAndMonth(year, month);
     }
 
     @Transactional

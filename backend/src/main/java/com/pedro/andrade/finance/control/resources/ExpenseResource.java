@@ -1,7 +1,6 @@
 package com.pedro.andrade.finance.control.resources;
 
 import com.pedro.andrade.finance.control.dto.ExpenseDTO;
-import com.pedro.andrade.finance.control.dto.IncomeDTO;
 import com.pedro.andrade.finance.control.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
