@@ -15,26 +15,42 @@ public class IncomeRepositoryTests {
     @Autowired
     private IncomeRepository incomeRepository;
     private String description;
+    private String nonMatchingDescription;
     private int year;
     private int month;
+    private int noInputsMonth;
 
     @BeforeEach
     void setUp() {
         description = "Wage";
+        nonMatchingDescription = "Lottery";
         year = 2022;
         month = 06;
+        noInputsMonth = 12;
     }
 
     @Test
-    void findAllByDescriptionContainingShouldReturnNonEmptyIncomeList() {
+    void findAllByDescriptionContainingShouldReturnNonEmptyIncomeListWhenDescriptionMatches() {
         List<Income> incomes = incomeRepository.findAllByDescriptionContaining(description);
         Assertions.assertFalse(incomes.isEmpty());
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnNonEmptyIncomeList() {
+    public void findAllByDescriptionContainingShouldReturnEmptyIncomeListWhenDescriptionDoesNotMatch() {
+        List<Income> incomes = incomeRepository.findAllByDescriptionContaining(nonMatchingDescription);
+        Assertions.assertTrue(incomes.isEmpty());
+    }
+
+    @Test
+    void findAllByYearAndMonthShouldReturnNonEmptyIncomeListWhenThereAreInputs() {
         List<Income> incomes = incomeRepository.findAllByYearAndMonth(year, month);
         Assertions.assertFalse(incomes.isEmpty());
+    }
+
+    @Test
+    void findAllByYearAndMonthShouldReturnEmptyIncomeListWhenThereArentInputs() {
+        List<Income> incomes = incomeRepository.findAllByYearAndMonth(year, noInputsMonth);
+        Assertions.assertTrue(incomes.isEmpty());
     }
 
     @Test

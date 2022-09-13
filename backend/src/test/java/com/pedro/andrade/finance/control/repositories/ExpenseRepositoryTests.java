@@ -17,37 +17,53 @@ public class ExpenseRepositoryTests {
     private ExpenseRepository expenseRepository;
 
     private String description;
+    private String nonMatchingDescription;
     private int year;
     private int month;
+    private int noInputsMonth;
 
     @BeforeEach
     void setUp() {
         description = "Cinema";
+        nonMatchingDescription = "house";
         year = 2022;
         month = 06;
+        noInputsMonth = 12;
     }
 
     @Test
-    public void findAllByDescriptionContainingShouldReturnNonEmptyExpenseList() {
+    void findAllByDescriptionContainingShouldReturnNonEmptyExpenseListWhenDescriptionMatches() {
         List<Expense> expenses = expenseRepository.findAllByDescriptionContaining(description);
         Assertions.assertFalse(expenses.isEmpty());
     }
 
     @Test
-    public void findAllByYearAndMonthShouldReturnNonEmptyExpenseList() {
+    void findAllByDescriptionContainingShouldReturnEmptyExpenseListWhenDescriptionDoesNotMatch() {
+        List<Expense> expenses = expenseRepository.findAllByDescriptionContaining(nonMatchingDescription);
+        Assertions.assertTrue(expenses.isEmpty());
+    }
+
+    @Test
+    void findAllByYearAndMonthShouldReturnNonEmptyExpenseListWhenThereAreInputs() {
         List<Expense> expenses = expenseRepository.findAllByYearAndMonth(year, month);
         Assertions.assertFalse(expenses.isEmpty());
     }
 
     @Test
-    public void getTotalExpensesByYearAndMonthShouldReturnNotNullDouble() {
+    void findAllByYearAndMonthShouldReturnEmptyExpenseListWhenThereArentInputs() {
+        List<Expense> expenses = expenseRepository.findAllByYearAndMonth(year, noInputsMonth);
+        Assertions.assertTrue(expenses.isEmpty());
+    }
+
+    @Test
+    void getTotalExpensesByYearAndMonthShouldReturnNotNullDouble() {
         Double totalExpenses = expenseRepository.getTotalExpensesByYearAndMonth(year, month);
         Assertions.assertNotNull(totalExpenses);
         Assertions.assertTrue(totalExpenses > 0);
     }
 
     @Test
-    public void getTotalExpensesEachCategoryByYearAndMonthShouldReturnNonEmptyExpenseByCategoryDTO() {
+    void getTotalExpensesEachCategoryByYearAndMonthShouldReturnNonEmptyExpenseByCategoryDTO() {
         List<ExpenseByCategoryDTO> list = expenseRepository.getTotalExpensesEachCategoryByYearAndMonth(year, month);
         Assertions.assertFalse(list.isEmpty());
     }
