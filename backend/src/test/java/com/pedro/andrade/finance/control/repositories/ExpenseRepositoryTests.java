@@ -28,26 +28,26 @@ public class ExpenseRepositoryTests {
     }
 
     @Test
-    void findAllByDescriptionContainingShouldReturnNonEmptyExpenseList() {
+    public void findAllByDescriptionContainingShouldReturnNonEmptyExpenseList() {
         List<Expense> expenses = expenseRepository.findAllByDescriptionContaining(description);
         Assertions.assertFalse(expenses.isEmpty());
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnNonEmptyExpenseList() {
+    public void findAllByYearAndMonthShouldReturnNonEmptyExpenseList() {
         List<Expense> expenses = expenseRepository.findAllByYearAndMonth(year, month);
         Assertions.assertFalse(expenses.isEmpty());
     }
 
     @Test
-    void getTotalExpensesByYearAndMonthShouldReturnNotNullDouble() {
+    public void getTotalExpensesByYearAndMonthShouldReturnNotNullDouble() {
         Double totalExpenses = expenseRepository.getTotalExpensesByYearAndMonth(year, month);
         Assertions.assertNotNull(totalExpenses);
         Assertions.assertTrue(totalExpenses > 0);
     }
 
     @Test
-    void getTotalExpensesEachCategoryByYearAndMonth() {
+    public void getTotalExpensesEachCategoryByYearAndMonthShouldReturnNonEmptyExpenseByCategoryDTO() {
         List<ExpenseByCategoryDTO> list = expenseRepository.getTotalExpensesEachCategoryByYearAndMonth(year, month);
         Assertions.assertFalse(list.isEmpty());
     }
