@@ -15,24 +15,24 @@ public class IncomeDTO implements Serializable {
     @NotBlank(message = "Description cannot be blank")
     private String description;
     @Positive(message = "Value must be positive")
-    private Double value;
+    private Double amount;
     @NotNull(message = "Must be a valid date")
     private LocalDate date;
 
     public IncomeDTO() {
     }
 
-    public IncomeDTO(Long id, String description, Double value, LocalDate date) {
+    public IncomeDTO(Long id, String description, Double amount, LocalDate date) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.amount = amount;
         this.date = date;
     }
 
     public IncomeDTO(Income entity) {
         this.id = entity.getId();
         this.description = entity.getDescription();
-        this.value = entity.getValue();
+        this.amount = entity.getAmount();
         this.date = entity.getDate();
     }
 
@@ -52,12 +52,12 @@ public class IncomeDTO implements Serializable {
         this.description = description;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public LocalDate getDate() {

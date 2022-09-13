@@ -12,12 +12,12 @@ import java.util.List;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findAllByDescriptionContaining(String description);
 
-    @Query(value = "SELECT * FROM tb_expense WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
+    @Query(value = "SELECT e FROM Expense e WHERE YEAR(e.date) = :year AND MONTH(e.date) = :month")
     List<Expense> findAllByYearAndMonth(Integer year, Integer month);
 
-    @Query(value = "SELECT SUM(value) FROM tb_expense WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
+    @Query(value = "SELECT SUM(e.amount) FROM Expense e WHERE YEAR(e.date) = :year AND MONTH(e.date) = :month")
     Double getTotalExpensesByYearAndMonth(Integer year, Integer month);
 
-    @Query(value = "SELECT new com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO(e.category, SUM(e.value)) FROM Expense e WHERE YEAR(e.date) = ?1 AND MONTH(e.date) = ?2 GROUP BY e.category")
+    @Query(value = "SELECT new com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO(e.category, SUM(e.amount)) FROM Expense e WHERE YEAR(e.date) = :year AND MONTH(e.date) = :month GROUP BY e.category")
     List<ExpenseByCategoryDTO> getTotalExpensesEachCategoryByYearAndMonth(Integer year, Integer month);
 }

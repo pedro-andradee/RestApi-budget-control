@@ -13,16 +13,16 @@ public class Income implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    private Double value;
+    private Double amount;
     private LocalDate date;
 
     public Income() {
     }
 
-    public Income(Long id, String description, Double value, LocalDate date) {
+    public Income(Long id, String description, Double amount, LocalDate date) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.amount = amount;
         this.date = date;
     }
 
@@ -42,12 +42,12 @@ public class Income implements Serializable {
         this.description = description;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public LocalDate getDate() {

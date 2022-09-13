@@ -86,7 +86,7 @@ public class ExpenseService {
 
     private void copyDtoToEntity(ExpenseDTO dto, Expense entity) {
         entity.setDescription(dto.getDescription());
-        entity.setValue(dto.getValue());
+        entity.setAmount(dto.getAmount());
         entity.setDate(dto.getDate());
         if (dto.getCategory() != null) {
             entity.setCategory(dto.getCategory());

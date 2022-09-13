@@ -79,7 +79,7 @@ public class IncomeService {
 
     private void copyDtoToEntity(IncomeDTO dto, Income entity) {
         entity.setDescription(dto.getDescription());
-        entity.setValue(dto.getValue());
+        entity.setAmount(dto.getAmount());
         entity.setDate(dto.getDate());
     }
 }

@@ -11,9 +11,9 @@ import java.util.List;
 public interface IncomeRepository extends JpaRepository<Income, Long> {
     List<Income> findAllByDescriptionContaining(String description);
 
-    @Query(value = "SELECT * FROM tb_income WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
+    @Query(value = "SELECT i FROM Income i WHERE YEAR(i.date) = :year AND MONTH(i.date) = :month")
     List<Income> findAllByYearAndMonth(Integer year, Integer month);
 
-    @Query(value = "SELECT SUM(value) FROM tb_income WHERE YEAR(date) = ?1 AND MONTH(date) = ?2", nativeQuery = true)
+    @Query(value = "SELECT SUM(i.amount) FROM Income i WHERE YEAR(i.date) = :year AND MONTH(i.date) = :month")
     Double getTotalIncomesByYearAndMonth(Integer year, Integer month);
 }

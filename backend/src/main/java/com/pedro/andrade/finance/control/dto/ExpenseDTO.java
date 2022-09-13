@@ -16,7 +16,7 @@ public class ExpenseDTO implements Serializable {
     @NotBlank(message = "Description cannot be blank")
     private String description;
     @Positive(message = "Value must be positive")
-    private Double value;
+    private Double amount;
     @NotNull(message = "Must be a valid date")
     private LocalDate date;
     private Category category;
@@ -24,10 +24,10 @@ public class ExpenseDTO implements Serializable {
     public ExpenseDTO() {
     }
 
-    public ExpenseDTO(Long id, String description, Double value, LocalDate date, Category category) {
+    public ExpenseDTO(Long id, String description, Double amount, LocalDate date, Category category) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.amount = amount;
         this.date = date;
         this.category = category;
     }
@@ -35,7 +35,7 @@ public class ExpenseDTO implements Serializable {
     public ExpenseDTO(Expense entity) {
         this.id = entity.getId();
         this.description = entity.getDescription();
-        this.value = entity.getValue();
+        this.amount = entity.getAmount();
         this.date = entity.getDate();
         this.category = entity.getCategory();
     }
@@ -56,12 +56,12 @@ public class ExpenseDTO implements Serializable {
         this.description = description;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public LocalDate getDate() {

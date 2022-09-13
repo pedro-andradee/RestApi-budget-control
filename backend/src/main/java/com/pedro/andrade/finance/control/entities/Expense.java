@@ -16,7 +16,7 @@ public class Expense implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    private Double value;
+    private Double amount;
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
@@ -25,10 +25,10 @@ public class Expense implements Serializable {
     public Expense() {
     }
 
-    public Expense(Long id, String description, Double value, LocalDate date, Category category) {
+    public Expense(Long id, String description, Double amount, LocalDate date, Category category) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.amount = amount;
         this.date = date;
         this.category = category;
     }
@@ -49,12 +49,12 @@ public class Expense implements Serializable {
         this.description = description;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public LocalDate getDate() {
