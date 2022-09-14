@@ -45,7 +45,7 @@ public class IncomeService {
     }
 
     @Transactional(readOnly = true)
-    public Double getTotalIncomesByYearAndMonth(Integer year, Integer month) {
+    public Optional<Double> getTotalIncomesByYearAndMonth(Integer year, Integer month) {
         return incomeRepository.getTotalIncomesByYearAndMonth(year, month);
     }
 

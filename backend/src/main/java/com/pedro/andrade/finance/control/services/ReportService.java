@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReportService {
@@ -19,14 +20,14 @@ public class ReportService {
 
     @Transactional(readOnly = true)
     public ReportDTO getReportByYearAndMonth(Integer year, Integer month) {
-        Double totalIncomes = incomeService.getTotalIncomesByYearAndMonth(year, month);
-        Double totalExpenses = expenseService.getTotalExpensesByYearAndMonth(year, month);
-        Double finalBalance = totalIncomes - totalExpenses;
+        Optional<Double> totalIncomes = incomeService.getTotalIncomesByYearAndMonth(year, month);
+        Optional<Double> totalExpenses = expenseService.getTotalExpensesByYearAndMonth(year, month);
         List<ExpenseByCategoryDTO> list = expenseService.getTotalExpensesEachCategoryByYearAndMonth(year, month);
 
         ReportDTO reportDTO = new ReportDTO();
-        reportDTO.setTotalIncomes(totalIncomes);
-        reportDTO.setTotalExpenses(totalExpenses);
+        reportDTO.setTotalIncomes(reportDTO.validateIncomesOptionalValue(totalIncomes));
+        reportDTO.setTotalExpenses(reportDTO.validateExpensesOptionalValue(totalExpenses));
+        Double finalBalance = reportDTO.getTotalIncomes() - reportDTO.getTotalExpenses();
         reportDTO.setFinalBalance(finalBalance);
         list.forEach(exp -> reportDTO.addExpenseByCategory(exp));
         return reportDTO;

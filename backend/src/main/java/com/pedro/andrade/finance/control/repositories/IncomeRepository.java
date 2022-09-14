@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IncomeRepository extends JpaRepository<Income, Long> {
@@ -15,5 +16,5 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
     List<Income> findAllByYearAndMonth(Integer year, Integer month);
 
     @Query(value = "SELECT SUM(i.amount) FROM Income i WHERE YEAR(i.date) = :year AND MONTH(i.date) = :month")
-    Double getTotalIncomesByYearAndMonth(Integer year, Integer month);
+    Optional<Double> getTotalIncomesByYearAndMonth(Integer year, Integer month);
 }

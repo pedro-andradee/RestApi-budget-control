@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ReportDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,5 +52,19 @@ public class ReportDTO implements Serializable {
 
     public void addExpenseByCategory(ExpenseByCategoryDTO expenseByCategoryDTO) {
         this.totalExpensesByCategory.add(expenseByCategoryDTO);
+    }
+
+    public double validateIncomesOptionalValue(Optional<Double> totalIncomes) {
+        if (totalIncomes.isEmpty()) {
+            return 0.0;
+        }
+        return totalIncomes.get();
+    }
+
+    public double validateExpensesOptionalValue(Optional<Double> totalExpenses) {
+        if (totalExpenses.isEmpty()) {
+            return 0.0;
+        }
+        return totalExpenses.get();
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
@@ -16,7 +17,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findAllByYearAndMonth(Integer year, Integer month);
 
     @Query(value = "SELECT SUM(e.amount) FROM Expense e WHERE YEAR(e.date) = :year AND MONTH(e.date) = :month")
-    Double getTotalExpensesByYearAndMonth(Integer year, Integer month);
+    Optional<Double> getTotalExpensesByYearAndMonth(Integer year, Integer month);
 
     @Query(value = "SELECT new com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO(e.category, SUM(e.amount)) FROM Expense e WHERE YEAR(e.date) = :year AND MONTH(e.date) = :month GROUP BY e.category")
     List<ExpenseByCategoryDTO> getTotalExpensesEachCategoryByYearAndMonth(Integer year, Integer month);

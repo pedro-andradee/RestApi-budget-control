@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class IncomeRepositoryTests {
@@ -25,7 +26,7 @@ public class IncomeRepositoryTests {
         description = "Wage";
         nonMatchingDescription = "Lottery";
         year = 2022;
-        month = 06;
+        month = 6;
         noInputsMonth = 12;
     }
 
@@ -42,21 +43,27 @@ public class IncomeRepositoryTests {
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnNonEmptyIncomeListWhenThereAreInputs() {
+    void findAllByYearAndMonthShouldReturnNonEmptyIncomeListWhenThereAreIncomesPersisted() {
         List<Income> incomes = incomeRepository.findAllByYearAndMonth(year, month);
         Assertions.assertFalse(incomes.isEmpty());
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnEmptyIncomeListWhenThereArentInputs() {
+    void findAllByYearAndMonthShouldReturnEmptyIncomeListWhenNoIncomesPersisted() {
         List<Income> incomes = incomeRepository.findAllByYearAndMonth(year, noInputsMonth);
         Assertions.assertTrue(incomes.isEmpty());
     }
 
     @Test
-    void getTotalIncomesByYearAndMonthShouldReturnNotNullDouble() {
-        Double totalIncomes = incomeRepository.getTotalIncomesByYearAndMonth(year, month);
-        Assertions.assertNotNull(totalIncomes);
-        Assertions.assertTrue(totalIncomes > 0);
+    void getTotalIncomesByYearAndMonthShouldReturnNonEmptyOptionalWhenThereAreIncomesPersisted() {
+        Optional<Double> totalIncomes = incomeRepository.getTotalIncomesByYearAndMonth(year, month);
+        Assertions.assertFalse(totalIncomes.isEmpty());
+        Assertions.assertTrue(totalIncomes.get() > 0);
+    }
+
+    @Test
+    void getTotalIncomesByYearAndMonthShouldReturnEmptyOptionalWhenNoIncomesPersisted() {
+        Optional<Double> totalIncomes = incomeRepository.getTotalIncomesByYearAndMonth(year, noInputsMonth);
+        Assertions.assertTrue(totalIncomes.isEmpty());
     }
 }

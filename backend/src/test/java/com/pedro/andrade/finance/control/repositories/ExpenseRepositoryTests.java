@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class ExpenseRepositoryTests {
@@ -27,7 +28,7 @@ public class ExpenseRepositoryTests {
         description = "Cinema";
         nonMatchingDescription = "house";
         year = 2022;
-        month = 06;
+        month = 6;
         noInputsMonth = 12;
     }
 
@@ -44,27 +45,39 @@ public class ExpenseRepositoryTests {
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnNonEmptyExpenseListWhenThereAreInputs() {
+    void findAllByYearAndMonthShouldReturnNonEmptyExpenseListWhenThereAreExpensesPersisted() {
         List<Expense> expenses = expenseRepository.findAllByYearAndMonth(year, month);
         Assertions.assertFalse(expenses.isEmpty());
     }
 
     @Test
-    void findAllByYearAndMonthShouldReturnEmptyExpenseListWhenThereArentInputs() {
+    void findAllByYearAndMonthShouldReturnEmptyExpenseListWhenNoExpensesPersisted() {
         List<Expense> expenses = expenseRepository.findAllByYearAndMonth(year, noInputsMonth);
         Assertions.assertTrue(expenses.isEmpty());
     }
 
     @Test
-    void getTotalExpensesByYearAndMonthShouldReturnNotNullDouble() {
-        Double totalExpenses = expenseRepository.getTotalExpensesByYearAndMonth(year, month);
-        Assertions.assertNotNull(totalExpenses);
-        Assertions.assertTrue(totalExpenses > 0);
+    void getTotalExpensesByYearAndMonthShouldReturnNonEmptyOptionalWhenThereAreExpensesPersisted() {
+        Optional<Double> totalExpenses = expenseRepository.getTotalExpensesByYearAndMonth(year, month);
+        Assertions.assertFalse(totalExpenses.isEmpty());
+        Assertions.assertTrue(totalExpenses.get() > 0);
     }
 
     @Test
-    void getTotalExpensesEachCategoryByYearAndMonthShouldReturnNonEmptyExpenseByCategoryDTO() {
+    void getTotalExpensesByYearAndMonthShouldReturnEmptyOptionalWhenNoExpensesPersisted() {
+        Optional<Double> totalExpenses = expenseRepository.getTotalExpensesByYearAndMonth(year, noInputsMonth);
+        Assertions.assertTrue(totalExpenses.isEmpty());
+    }
+
+    @Test
+    void getTotalExpensesEachCategoryByYearAndMonthShouldReturnNonEmptyListWhenThereAreExpensesPersisted() {
         List<ExpenseByCategoryDTO> list = expenseRepository.getTotalExpensesEachCategoryByYearAndMonth(year, month);
         Assertions.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    void getTotalExpensesEachCategoryByYearAndMonthShouldReturnEmptyListWhenNoExpensesPersisted() {
+        List<ExpenseByCategoryDTO> list = expenseRepository.getTotalExpensesEachCategoryByYearAndMonth(year, noInputsMonth);
+        Assertions.assertTrue(list.isEmpty());
     }
 }
