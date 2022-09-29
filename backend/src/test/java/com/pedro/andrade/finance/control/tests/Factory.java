@@ -1,5 +1,7 @@
 package com.pedro.andrade.finance.control.tests;
 
+import com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO;
+import com.pedro.andrade.finance.control.dto.ExpenseDTO;
 import com.pedro.andrade.finance.control.dto.IncomeDTO;
 import com.pedro.andrade.finance.control.entities.Expense;
 import com.pedro.andrade.finance.control.entities.Income;
@@ -19,5 +21,13 @@ public class Factory {
 
     public static IncomeDTO createIncomeDTO() {
         return new IncomeDTO(2L, "Wage", 2500.00, LocalDate.parse("2022-06-09"));
+    }
+
+    public static ExpenseDTO createExpenseDTO() {
+        return new ExpenseDTO(1L, "Energy bill", 100.0, LocalDate.parse("2022-06-02"), Category.HOUSING);
+    }
+
+    public static ExpenseByCategoryDTO createExpenseByCategoryDTO() {
+        return new ExpenseByCategoryDTO(Category.HOUSING, 100.0);
     }
 }

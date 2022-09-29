@@ -7,7 +7,6 @@ import com.pedro.andrade.finance.control.services.exceptions.ResourceNotFoundExc
 import com.pedro.andrade.finance.control.tests.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -21,7 +20,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 import static org.mockito.Mockito.*;
 
@@ -93,7 +91,7 @@ class IncomeServiceTests {
     @Test
     void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            incomeService.findById(nonExistingId);;
+            incomeService.findById(nonExistingId);
         });
         verify(incomeRepository, times(1)).findById(nonExistingId);
     }
