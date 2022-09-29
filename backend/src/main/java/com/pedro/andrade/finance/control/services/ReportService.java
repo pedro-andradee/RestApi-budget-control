@@ -25,8 +25,8 @@ public class ReportService {
         List<ExpenseByCategoryDTO> list = expenseService.getTotalExpensesEachCategoryByYearAndMonth(year, month);
 
         ReportDTO reportDTO = new ReportDTO();
-        reportDTO.setTotalIncomes(reportDTO.validateIncomesOptionalValue(totalIncomes));
-        reportDTO.setTotalExpenses(reportDTO.validateExpensesOptionalValue(totalExpenses));
+        reportDTO.setTotalIncomes(reportDTO.validateOptionalValue(totalIncomes));
+        reportDTO.setTotalExpenses(reportDTO.validateOptionalValue(totalExpenses));
         Double finalBalance = reportDTO.getTotalIncomes() - reportDTO.getTotalExpenses();
         reportDTO.setFinalBalance(finalBalance);
         list.forEach(exp -> reportDTO.addExpenseByCategory(exp));

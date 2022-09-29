@@ -54,17 +54,10 @@ public class ReportDTO implements Serializable {
         this.totalExpensesByCategory.add(expenseByCategoryDTO);
     }
 
-    public double validateIncomesOptionalValue(Optional<Double> totalIncomes) {
-        if (totalIncomes.isEmpty()) {
+    public double validateOptionalValue(Optional<Double> total) {
+        if (total.isEmpty()) {
             return 0.0;
         }
-        return totalIncomes.get();
-    }
-
-    public double validateExpensesOptionalValue(Optional<Double> totalExpenses) {
-        if (totalExpenses.isEmpty()) {
-            return 0.0;
-        }
-        return totalExpenses.get();
+        return total.get();
     }
 }
