@@ -46,7 +46,7 @@ class IncomeServiceTests {
         existingId = 1L;
         nonExistingId = 2L;
         income = Factory.createIncome();
-        list = new ArrayList<>(List.of(income));
+        list = List.of(income);
         year = 2022;
         month = 06;
         nonDataPersistedMonth = 07;

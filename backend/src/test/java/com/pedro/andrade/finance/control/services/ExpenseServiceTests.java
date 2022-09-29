@@ -48,13 +48,13 @@ class ExpenseServiceTests {
         existingId = 1L;
         nonExistingId = 2L;
         expense = Factory.createExpense();
-        list = new ArrayList<>(List.of(expense));
+        list = List.of(expense);
         year = 2022;
         month = 06;
         nonDataPersistedMonth = 07;
         totalExpensesAmount = 3500.0;
         expenseByCategoryDTO = Factory.createExpenseByCategoryDTO();
-        expenseByCategoryDTOList = new ArrayList<>(List.of(expenseByCategoryDTO));
+        expenseByCategoryDTOList = List.of(expenseByCategoryDTO);
 
         when(expenseRepository.findAll()).thenReturn(list);
         when(expenseRepository.findAllByDescriptionContaining(ArgumentMatchers.anyString())).thenReturn(list);
