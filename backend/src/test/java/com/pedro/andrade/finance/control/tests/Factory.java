@@ -3,6 +3,7 @@ package com.pedro.andrade.finance.control.tests;
 import com.pedro.andrade.finance.control.dto.ExpenseByCategoryDTO;
 import com.pedro.andrade.finance.control.dto.ExpenseDTO;
 import com.pedro.andrade.finance.control.dto.IncomeDTO;
+import com.pedro.andrade.finance.control.dto.ReportDTO;
 import com.pedro.andrade.finance.control.entities.Expense;
 import com.pedro.andrade.finance.control.entities.Income;
 import com.pedro.andrade.finance.control.enums.Category;
@@ -29,5 +30,11 @@ public class Factory {
 
     public static ExpenseByCategoryDTO createExpenseByCategoryDTO() {
         return new ExpenseByCategoryDTO(Category.HOUSING, 100.0);
+    }
+
+    public static ReportDTO createReportDTO() {
+        ReportDTO reportDTO = new ReportDTO(2000.0, 1000.0, 1000.0);
+        reportDTO.addExpenseByCategory(Factory.createExpenseByCategoryDTO());
+        return reportDTO;
     }
 }

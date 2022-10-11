@@ -22,6 +22,12 @@ public class ReportDTO implements Serializable {
     public ReportDTO() {
     }
 
+    public ReportDTO(Double totalIncomes, Double totalExpenses, Double finalBalance) {
+        this.totalIncomes = totalIncomes;
+        this.totalExpenses = totalExpenses;
+        this.finalBalance = finalBalance;
+    }
+
     public Double getTotalIncomes() {
         return totalIncomes;
     }
