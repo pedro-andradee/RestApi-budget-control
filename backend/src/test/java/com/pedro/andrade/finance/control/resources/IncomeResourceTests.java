@@ -52,6 +52,7 @@ class IncomeResourceTests {
         when(incomeService.findAllIncomes()).thenReturn(list);
         when(incomeService.findById(existingId)).thenReturn(incomeDTO);
         when(incomeService.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
+        when(incomeService.findAllByYearAndMonth(year, month)).thenReturn(list);
         when(incomeService.insert(any())).thenReturn(incomeDTO);
         when(incomeService.update(eq(existingId), any())).thenReturn(incomeDTO);
         when(incomeService.update(eq(nonExistingId), any())).thenThrow(ResourceNotFoundException.class);

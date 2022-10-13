@@ -53,6 +53,7 @@ class ExpenseResourceTests {
         when(expenseService.findAllExpenses()).thenReturn(list);
         when(expenseService.findById(existingId)).thenReturn(expenseDTO);
         when(expenseService.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
+        when(expenseService.findAllByYearAndMonth(year, month)).thenReturn(list);
         when(expenseService.insert(any())).thenReturn(expenseDTO);
         when(expenseService.update(eq(existingId), any())).thenReturn(expenseDTO);
         when(expenseService.update(eq(nonExistingId), any())).thenThrow(ResourceNotFoundException.class);
